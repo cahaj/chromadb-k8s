@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chromadb
+  labels:
+    app: chromadb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chromadb
+  template:
+    metadata:
+      labels:
+        app: chromadb
+    spec:
+      volumes:
+        - name: chromadb-pv-mount
+          persistentVolumeClaim:
+            claimName: chromadb-pvc
+      containers:
+        - name: chromadb
+          image: docker.io/cahaj/chromadb_pip:0.5.3
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 7222
+          volumeMounts:
+            - mountPath: "/usr/volume"
+              name: chromadb-pv-mount
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: chromadb
+spec:
+  selector:
+    app: chromadb
+  ports:
+  - name: http
+    port: 7222
+    targetPort: 7222
+    nodePort: 30084
+  type: NodePort
