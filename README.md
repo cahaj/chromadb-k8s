@@ -1,1 +1,2 @@
 # chromadb-k8s
+Official chromadb image should work with rewriting env variables CHROMA_HOST_PORT and CHROMA_HOST_ADDR, see [chromadb/chroma:0.5.3](https://hub.docker.com/layers/chromadb/chroma/0.5.3/images/sha256-b03688bffb2eb8bcdc200bd470ff4fde86570849d5efd9a3f65a8b393ad44e97?context=explore)
